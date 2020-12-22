@@ -1,0 +1,12 @@
+##
+## You provide this
+##
+
+FROM dirkcgrunwald/facerec:latest
+
+RUN pip3 install pika jsonpickle
+
+WORKDIR /srv
+COPY logs.py /srv
+EXPOSE 5002
+CMD ["python3", "logs.py"]

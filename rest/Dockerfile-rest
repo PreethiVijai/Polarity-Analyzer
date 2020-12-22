@@ -1,0 +1,13 @@
+##
+## You provide this
+##
+
+FROM dirkcgrunwald/facerec:latest
+
+RUN pip3 install pika redis jsonpickle requests flask Pillow
+
+WORKDIR /srv
+COPY rest-server.py /srv
+ENV FLASK_APP=rest-server.py
+EXPOSE 5000
+CMD ["python3", "rest-server.py"]

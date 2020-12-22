@@ -1,0 +1,36 @@
+##
+## You provide this
+##
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: worker
+spec:
+    selector:
+        matchLabels:
+            app: worker
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                app: worker
+                    
+        spec:
+            containers:
+            - name: worker
+              image: gcr.io/datacenter-292201/worker:latest
+              env:
+              - name: REDIS_HOST
+                value: 10.3.255.55
+              - name: RABBITMQ_HOST
+                value: 10.3.255.148
+              - name: PYTHONUNBUFFERED
+                value: "0"
+              resources:
+                  requests:
+                      cpu: 100m
+                      memory: 400Mi
+              ports:
+              - containerPort: 5001
+                      

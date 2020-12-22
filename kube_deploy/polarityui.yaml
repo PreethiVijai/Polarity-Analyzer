@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: polarityui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: polarityui
+  template:
+    metadata:
+      labels:
+        app: polarityui
+    spec:
+      containers:
+        - name: polarityui
+          image: 
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: polarityui
+  name: polarityui
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: polarityui
+  type: ClusterIP

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: analyzer
+  name: webserver
   labels:
-    app: analyzer
+    app: webserver
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: analyzer
+      app: webserver
   template:
     metadata:
       labels:
-        app: analyzer
+        app: webserver
     spec:
       containers:
-      - image: gcr.io/polarity-analyzer/analyzer:latest
-        name: analyzer
+      - image: gcr.io/polarity-analyzer/webserver:latest
+        name: webserver

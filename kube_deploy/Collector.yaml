@@ -15,5 +15,5 @@ spec:
         app: collector
     spec:
       containers:
-      - image: 
+      - image: gcr.io/polarity-analyzer/collector:latest
         name: collector

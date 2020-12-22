@@ -1,5 +1,4 @@
 import argparse
-
 import RabbitReceiver
 import TweetProcessor
 import DatabaseAccesser
@@ -22,7 +21,7 @@ class Analyzer:
     def __init__(self, rabbit_host, database_name):
         queue_name = 'tweet'
         self.processor = TweetProcessor.TweetProcessor()
-        self.db_accesser = DatabaseAccesser.DatabaseAccesser(database_name, 'Polaritydb')
+        self.db_accesser = DatabaseAccesser.DatabaseAccesser(database_name, 'polarity')
         self.db_accesser.prepare_connection()
         self.receiver = RabbitReceiver.RabbitReceiver(queue_name, self.process_tweet)
         self.receiver.prepare_connection(rabbit_host)

@@ -3,6 +3,7 @@ RUN apt-get update
 RUN apt-get install -y python3 python3-pip
 WORKDIR /Analyzer
 # Install python libraries
+
 ADD requirements.txt /Analyzer/requirements.txt
 RUN python3 -m pip install -r /Analyzer/requirements.txt
 # Upload code

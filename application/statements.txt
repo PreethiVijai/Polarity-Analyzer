@@ -1,0 +1,53 @@
+kubectl apply -f kube_deploy/PersistentVolume.yaml
+kubectl apply -f kube_deploy/MySQL.yaml
+kubectl apply -f kube_deploy/mysqlService.yaml
+kubectl apply -f kube_deploy/RabbitMQ.yaml
+kubectl apply -f kube_deploy/rabbitmqService.yaml
+
+kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h mysql -p
+
+kubectl get pods
+
+docker build application/Collector --file application/Collector/Dockerfile --tag gcr.io/polarity-analyzer/collector:latest
+docker push gcr.io/polarity-analyzer/collector:latest
+kubectl apply -f kube_deploy/Collector.yaml
+
+docker build application/Analyzer --file application/Analyzer/Dockerfile --tag gcr.io/polarity-analyzer/analyzer:latest
+docker push gcr.io/polarity-analyzer/analyzer:latest
+kubectl apply -f kube_deploy/Analyzer.yaml
+
+docker build application/webserver --file application/webserver/Dockerfile --tag gcr.io/polarity-analyzer/webserver:latest
+docker push gcr.io/polarity-analyzer/webserver:latest
+kubectl apply -f kube_deploy/webserver.yaml
+kubectl apply -f kube_deploy/webserverService.yaml
+
+
+
+docker build application/webserver --file application/webserver/Dockerfile --tag gcr.io/polarity-analyzer/webserver:latest
+
+docker push gcr.io/polarity-analyzer/webserver:latest
+
+
+python3 Collector.py YVNpvXGg21DsowaWwa7EESVqC nYnZPnw9RGdcJUzxKOSQ091B8gRI2GN4woDEGrdsbsZlc8mNdt rabbitmq
+
+
+
+create table polarity.POLARITY_TBL(id INT,polarity INT,location VARCHAR(100) NOT NULL,tweets VARCHAR(250) NOT NULL,date DATE,PRIMARY KEY ( id ));
+
+SELECT * FROM polarity.POLARITY_TBL;
+DELETE FROM polarity.POLARITY_TBL;
+kubectl exec --stdin --tty shell-demo -- /bin/bash
+
+
+def on_data(self, data):
+        rabbit_sender = RabbitSender('tweet')
+        rabbit_sender.prepare_connection("localhost")
+        if(data):
+            rabbit_sender.send_message(data)
+        return(True)
+/opt/rabbitmq/sbin/
+
+To execute message check in rabbit mq:
+kubectl exec --stdin --tty rabbitmq-7644d7559d-4blmh -- /bin/bash
+cd /opt/rabbitmq/sbin/
+rabbitmqctl list_queues
